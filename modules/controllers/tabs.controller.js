@@ -1,4 +1,4 @@
-const Tabs = require('../../db/models/users/tabs');
+const Tabs = require('../../db/models/tabs/indexTabs');
 
 module.exports.allTabs = async (req, res, next) => {
   Tabs.find().then((result) => {
@@ -21,9 +21,9 @@ module.exports.patchTabs = (req, res, next) => {
 });
 };
 
-module.exports.deleteTask = (req, res) => {
-  Task.deleteOne({_id: req.query._id}).then(result => {
-    Task.find().then(result => {
+module.exports.deleteTabs = (req, res) => {
+  Tabs.deleteOne({_id: req.query._id}).then(result => {
+    Tabs.find().then(result => {
       res.send({data:result});
     })  
   });
