@@ -9,8 +9,14 @@ module.exports.allTabs = async (req, res, next) => {
 module.exports.createTabs = async (req, res, next) => {
  const tabs = new Tabs(req.body);
     tabs.save().then(result => {
-      Tabs.find().then(result => {
-        res.send(result);
-      }).catch(err => res.status(404).send({error: "unable to create new table"}))
-    });
+      res.send(result);
+      }).catch(err => res.status(404).send({error: "unable to create new table"}));
 }
+
+module.exports.patchTabs = (req, res, next) => {
+  Tabs.updateOne({_id: req.body._id}, req.body).then(result => {
+    Tabs.find().then(result => {
+      res.send(result);
+  }).catch(err => res.status(404).send({error: "The change to the table was not successful"}))    
+});
+};
