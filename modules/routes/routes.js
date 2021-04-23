@@ -10,7 +10,7 @@ const{
 //User routs
 router.get('/allUsers',allUsers);
 router.post('/createUser',createUser);
-router.post('/LogIn',LogIn);
+router.post('/LogIn', LogIn);
 
 const{
   allTabs,
