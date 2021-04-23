@@ -1,12 +1,12 @@
 const User = require('../../db/models/users/index')
 
 module.exports.LogIn = async (req, res, next) => {
-  const ligin= new User(req.body);
-  const checkLogin = ligin.login;
-  const checkPassword = ligin.password
+  const isLog = new User(req.body);
+  const checkLogin = isLog.login;
+  const checkPassword = isLog.password;
   const checkingUser = await User.findOne({login: checkLogin, password: checkPassword});
     if(checkingUser){
-      ligin.save().then(result => {
+      isLog.save().then(result => {
       res.send(result);
       });
     } else {
@@ -14,24 +14,26 @@ module.exports.LogIn = async (req, res, next) => {
     }
 }
   
-module.exports.createUser = async (req, res, next) => {
-  const user = new User(req.body);
-  const newlogin = user.login;
-  const checkingUser = await User.findOne({login: newlogin});
-    if(checkingUser){
-     return res.status(400).send({error:"Sorry but user is exist, make another login"})
-    } else {
-      user.save().then(result => {
-      res.send(result);
-     } )
+
+  module.exports.createUser = async (req, res, next) => {
+    try {
+      const {login, password} = req.body;
+      const candidate = await User.findOne({login});
+      if (candidate) {
+        return res.status(400).send({error: "User is already created"});
+      }
+     
+      const user = new User({login, password});
+      await user.save().then((result) => {
+        res.send({data: result});
+      });
+    } catch (e) {
+      res.send({message: "Server error"});
     }
-  }
+  };
   
 module.exports.allUsers = async (req, res, next) => {
-  const user = new User(req.body);
-    user.save().then(result => {
-      User.find().then(result => {
-        res.send({data:result});
-      });
-    });
- };
+  User.find().then((result) => {
+    res.send(result);
+  });
+};

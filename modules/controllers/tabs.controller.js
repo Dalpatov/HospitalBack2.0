@@ -1,6 +1,6 @@
 const Tabs = require('../../db/models/tabs/indexTabs');
 
-module.exports.allTabs = async (req, res, next) => {
+module.exports.allTabs = async (req, res) => {
   Tabs.find().then((result) => {
     res.send({ data: result });
   });
@@ -25,6 +25,6 @@ module.exports.deleteTabs = (req, res) => {
   Tabs.deleteOne({_id: req.query._id}).then(result => {
     Tabs.find().then(result => {
       res.send({data:result});
-    })  
+    });
   });
 };

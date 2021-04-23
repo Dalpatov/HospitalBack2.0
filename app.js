@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require("cors");
 const app = express();
+const apiRoutes = require("./modules/routes/routes");
 
-const apiRoutes = require ("./modules/routes/routes");
 app.use("/", apiRoutes);
+// app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.json());
 app.use(cors());
 
 

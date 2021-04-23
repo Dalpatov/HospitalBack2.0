@@ -5,7 +5,7 @@ const{
   allUsers,
   createUser,
   LogIn
-} = require('../controllers/user.controller')
+} = require('../controllers/user.controller');
 
 //User routs
 router.get('/allUsers',allUsers);
@@ -16,8 +16,8 @@ const{
   allTabs,
   createTabs,
   deleteTabs,
-  patchTabs,
-} = require('../controllers/tabs.controller')
+  patchTabs
+} = require('../controllers/tabs.controller');
 
 //Tabs routs
 router.get('/allTabs', allTabs);
