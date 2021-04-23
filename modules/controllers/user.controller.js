@@ -1,7 +1,6 @@
 const User = require('../../db/models/users/index')
 
 module.exports.LogIn = async (req, res, next) => {
-  console.log('req.body', req.body);
   const { login, password } = req.body;
   const checkingUser = await User.findOne({ login, password });
     if(checkingUser){
@@ -22,10 +21,10 @@ module.exports.LogIn = async (req, res, next) => {
       
       const user = new User({ login, password} );
       await user.save().then((result) => {
-        res.send( {data: result} );
+        res.send({ data: result });
       });
     } catch (e) {
-      res.send( {message: "Server error"} );
+      res.send({ message: "Server error" });
     }
   };
   
